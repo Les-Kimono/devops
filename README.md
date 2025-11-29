@@ -1,8 +1,5 @@
 # DevOps Report - Site Quartz
 
-## ⚠️ Important : Utiliser WSL
-
-
 ## 🚀 Démarrage rapide
 
 ### Première installation
