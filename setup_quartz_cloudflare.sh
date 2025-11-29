@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
  
-# ====== EDIT ======
-export GH_USER="${GH_USER:-luucas7}"
-export REPO="${REPO:-devops-quartz-site}"
-
- 
 # ====== PATHS ======
 # Use current directory as the site directory (where the script is run from)
 export SITE_DIR="${SITE_DIR:-$(pwd)}"
 export ROOT="${ROOT:-$(dirname "$SITE_DIR")}"
-export DEVOPS_CONTENT_DIR="${DEVOPS_CONTENT_DIR:-$ROOT/devops/devops-content}"  # markdown/static content for devops track
-export UPM_CONTENT_DIR="${UPM_CONTENT_DIR:-$ROOT/devops/upm-content}"        # markdown/static content for upm track
+export DEVOPS_CONTENT_DIR="${DEVOPS_CONTENT_DIR:-$ROOT/devops/}"  # markdown/static content for devops track
+export UPM_CONTENT_DIR="${UPM_CONTENT_DIR:-$ROOT/devops/upm}"        # markdown/static content for upm track
 
 # Optional: load Cloudflare/GitHub secrets from .env-style files (kept out of git)
 # Load .env from script directory first, then other locations
@@ -25,8 +20,9 @@ for env_file in "$SCRIPT_DIR/.env" "$HOME/.devops-website.env" "$ROOT/.env" "$RO
   fi
 done
 
-# ====== EDIT le retour ======
-# Define Cloudflare variables with defaults (must be defined before use with set -u)
+# ====== EDIT ======
+export REPO="${REPO:-devops}"
+export GH_USER="${GH_USER:-CHANGE_ME_GH_USER}"
 export CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-CHANGE_ME_CF_ACCOUNT_ID}"
 export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-CHANGE_ME_CF_API_TOKEN}"
 export PROJ="${PROJ:-kimonos-report}"
