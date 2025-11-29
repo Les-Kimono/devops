@@ -13,7 +13,7 @@
 
 2. Récupérer le fichier `.env` manuellement (demandez-le à un collaborateur)
 
-**Toutes les commandes doivent être exécutées dans Linux (c'est mieux) ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD.**
+**!!!!! Toutes les commandes doivent être exécutées dans Linux (c'est mieux) ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD. !!!!!**
 
 3. Installer les dépendances système :
 
