@@ -146,6 +146,9 @@ async function startWatching(
     persistent: true,
     cwd: argv.directory,
     ignoreInitial: true,
+    usePolling: process.env.WSL_DISTRO_NAME !== undefined || process.platform === "win32",
+    interval: 100,
+    binaryInterval: 100,
   })
 
   const changes: ChangeEvent[] = []
