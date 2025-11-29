@@ -2,7 +2,7 @@ SHELL := /bin/bash
 MAKEFLAGS += --warn-undefined-variables
  
 SCRIPT := $(PWD)/setup_quartz_cloudflare.sh
-SITE_DIR := $(HOME)/devops-website/devops-quartz-site
+SITE_DIR := $(PWD)
  
  
 .PHONY: help site/setup site/update site/clean site/check
@@ -21,7 +21,7 @@ site/setup:
 	@"$(SCRIPT)"
  
 site/update:
-	@if [ ! -d "$(SITE_DIR)" ]; then \
+	@if [ ! -d "$(SITE_DIR)/content" ]; then \
 		echo "Quartz site not initialised in $(SITE_DIR). Run 'make site/setup' first."; \
 		exit 1; \
 	fi
@@ -39,6 +39,9 @@ site/check:
 	@bash -n "$(SCRIPT)"
  
 site/clean:
-	@echo "[site/clean] Removing $(SITE_DIR)"
-	@rm -rf "$(SITE_DIR)"
+	@echo "[site/clean] Cleaning generated files in $(SITE_DIR)"
+	@cd "$(SITE_DIR)" && rm -rf public node_modules/.cache .quartz-cache
  
+site/serve:
+	@echo "[site/serve] Serving the Quartz site locally"
+	@cd "$(SITE_DIR)" && npx quartz build --serve
