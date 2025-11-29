@@ -6,7 +6,7 @@ set -euo pipefail
 export SITE_DIR="${SITE_DIR:-$(pwd)}"
 export ROOT="${ROOT:-$(dirname "$SITE_DIR")}"
 export DEVOPS_CONTENT_DIR="${DEVOPS_CONTENT_DIR:-$ROOT/devops/}"  # markdown/static content for devops track
-export UPM_CONTENT_DIR="${UPM_CONTENT_DIR:-$ROOT/devops/upm}"        # markdown/static content for upm track
+export UPM_CONTENT_DIR="${UPM_CONTENT_DIR:-$ROOT/upm}"        # markdown/static content for upm track
 
 # Optional: load Cloudflare/GitHub secrets from .env-style files (kept out of git)
 # Load .env from script directory first, then other locations
@@ -25,7 +25,7 @@ export REPO="${REPO:-devops}"
 export GH_USER="${GH_USER:-CHANGE_ME_GH_USER}"
 export CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-CHANGE_ME_CF_ACCOUNT_ID}"
 export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-CHANGE_ME_CF_API_TOKEN}"
-export PROJ="${PROJ:-kimonos-report}"
+export PROJ="${PROJ:-kimonos-devops}"
 export DOMAIN="${DOMAIN:-CHANGE_ME_DOMAIN}"                 # optional custom domain
 export EMAIL_DOMAIN="${EMAIL_DOMAIN:-esiee.fr,edu.esiee.fr}" # comma-separated
 export ACCESS_APP_NAME="${ACCESS_APP_NAME:-devops-website}"
@@ -381,6 +381,3 @@ npx quartz build
 wrangler pages deploy ./public --project-name "$PROJ"
  
 echo "Deployment done at $(date '+%Y-%m-%d %H:%M:%S')  |  Site root: https://$ACCESS_HOST"
- 
- 
- 
