@@ -16,7 +16,7 @@
 
 2. Récupérer le fichier `.env` manuellement (demandez-le à un collaborateur)
 
-**Toutes les commandes doivent être exécutées dans Linux ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD.**
+**Toutes les commandes doivent être exécutées dans Linux (c'est mieux) ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD.**
 
 3. Installer les dépendances système :
 
@@ -41,8 +41,6 @@ make site/serve
 # 2. Mettre à jour et déployer les changements
 make site/update
 ```
-
-Le site sera accessible sur `http://localhost:8080` (ou le port indiqué).
 
 ## 📝 Workflow de développement
 
