@@ -29,7 +29,7 @@ done
 # Define Cloudflare variables with defaults (must be defined before use with set -u)
 export CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-CHANGE_ME_CF_ACCOUNT_ID}"
 export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-CHANGE_ME_CF_API_TOKEN}"
-export PROJ="${PROJ:-devops-quartz-pages}"
+export PROJ="${PROJ:-kimonos-report}"
 export DOMAIN="${DOMAIN:-CHANGE_ME_DOMAIN}"                 # optional custom domain
 export EMAIL_DOMAIN="${EMAIL_DOMAIN:-esiee.fr,edu.esiee.fr}" # comma-separated
 export ACCESS_APP_NAME="${ACCESS_APP_NAME:-devops-website}"
