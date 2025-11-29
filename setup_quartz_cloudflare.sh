@@ -57,25 +57,6 @@ quartz_degit_clone(){
   rm -rf "$tmpdir"; return 1
 }
  
-write_index_from_readme(){
-  local tmp=$(mktemp)
-  # If README.md exists in current directory or ROOT, wrap it with Quartz frontmatter for the home page.
-  if [ -f "$SITE_DIR/README.md" ]; then
-    cat "$SITE_DIR/README.md" > "$tmp"
-  elif [ -f "$ROOT/README.md" ]; then
-    cat "$ROOT/README.md" > "$tmp"
-  else
-    printf '# Welcome\n' > "$tmp"
-  fi
-  {
-    printf '%s\n' '---'
-    printf '%s\n' 'title: Home'
-    printf '%s\n' 'publish: true'
-    printf '%s\n' '---'
-    cat "$tmp"
-  } > "$SITE_DIR/content/index.md"
-  rm -f "$tmp"
-}
  
 # ====== ENSURE Assets() EMITTER IS ENABLED IN quartz.config.ts ======
 ensure_assets_emitter() {
@@ -160,8 +141,9 @@ if [ ! -d "content" ] || [ ! -f "package.json" ]; then
   npm install
 else
   echo "Quartz scaffold already exists, skipping creation"
-  # Ensure dependencies are installed
-  [ -d "node_modules" ] || npm install
+  # Ensure dependencies are installed - always run npm install to ensure all deps are present
+  echo "Installing/updating npm dependencies..."
+  npm install
 fi
  
 # ensure non-MD assets under content/ are emitted
@@ -178,7 +160,6 @@ mkdir -p "$SITE_DIR/quartz/static/img"
 # Copy images to quartz/static/img (Static plugin serves static/ at /static/)
 [ -d "$ROOT/static/img" ] && cp -a "$ROOT/static/img/." "$SITE_DIR/quartz/static/img/" || true
 [ -d "$SITE_DIR/static/img" ] && cp -a "$SITE_DIR/static/img/." "$SITE_DIR/quartz/static/img/" || true
-write_index_from_readme
 # Sync content from external directories if they exist
 sync_all_content(){
   sync_content_dir "$DEVOPS_CONTENT_DIR" "devops"

@@ -1,1 +1,6 @@
 .env
+.env.cloudflare
+node_modules
+public
+node_modules
+.quartz-cache
