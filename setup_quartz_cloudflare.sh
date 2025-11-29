@@ -78,17 +78,6 @@ ensure_assets_emitter() {
   echo "Patched Assets() into quartz.config.ts"
 }
  
-# Copy a content directory into the Quartz content tree under a given prefix.
-sync_content_dir() {
-  local src="$1" prefix="$2"
-  [ -d "$src" ] || return 0
-  find "$src" -type f -print0 | while IFS= read -r -d '' f; do
-    rel="${f#"$src/"}"
-    dest="$SITE_DIR/content/$prefix/$rel"
-    mkdir -p "$(dirname "$dest")"
-    cp -f "$f" "$dest"
-  done
-}
  
 # -----------------------------------------------------------------------
  
@@ -346,6 +335,7 @@ rm -f /tmp/appupd
 # ====== 10) FINAL DEPLOY ======
 log_step "10) Rebuilding site and publishing final deploy"
 # Safety: ensure there are no files >25 MiB under site content.
+
 large_count=$(find "$SITE_DIR/content" -type f -size +25M | wc -l || true)
 if [ "${large_count:-0}" -gt 0 ]; then
   log_step "Found $large_count file(s) >25MiB under $SITE_DIR/content — refusing to deploy."
