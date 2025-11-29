@@ -146,23 +146,8 @@ fi
 ensure_assets_emitter
  
 # ====== 5) SITE SKELETON ======
-log_step "5) Creating base content structure"
-# Ensure content directory exists
-mkdir -p "$SITE_DIR/content"
-# Only clean specific subdirectories if they exist, preserve existing content
-[ -d "$SITE_DIR/public" ] && rm -rf "$SITE_DIR/public" || true
-[ -d "$SITE_DIR/quartz/static/nb" ] && rm -rf "$SITE_DIR/quartz/static/nb" || true
-mkdir -p "$SITE_DIR/quartz/static/img"
-# Copy images to quartz/static/img (Static plugin serves static/ at /static/)
-[ -d "$ROOT/static/img" ] && cp -a "$ROOT/static/img/." "$SITE_DIR/quartz/static/img/" || true
-[ -d "$SITE_DIR/static/img" ] && cp -a "$SITE_DIR/static/img/." "$SITE_DIR/quartz/static/img/" || true
-# Sync content from external directories if they exist
-sync_all_content(){
-  sync_content_dir "$DEVOPS_CONTENT_DIR" "devops"
-  sync_content_dir "$UPM_CONTENT_DIR" "upm"
-}
-sync_all_content
- 
+log_step "5) Skipping base content structure"
+
 # Keep Assets emitter enabled (for any non-MD assets placed in content/)
 ensure_assets_emitter
  

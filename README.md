@@ -2,7 +2,6 @@
 
 ## ⚠️ Important : Utiliser WSL
 
-**Toutes les commandes `make` doivent être exécutées dans WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD.**
 
 ## 🚀 Démarrage rapide
 
@@ -16,6 +15,8 @@
    ```
 
 2. Récupérer le fichier `.env` manuellement (demandez-le à un collaborateur)
+
+**Toutes les commandes doivent être exécutées dans Linux ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD.**
 
 3. Installer les dépendances système :
 
