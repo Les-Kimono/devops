@@ -156,7 +156,8 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
   if git remote | grep -q '^origin$'; then
     echo "Fetching and pulling from origin/$CURRENT_BRANCH"
     git fetch origin "$CURRENT_BRANCH" || true
-    git pull origin "$CURRENT_BRANCH" || echo "Warning: Could not pull from origin (may have conflicts or be ahead)"
+    # Use merge strategy that prefers local changes to avoid folder name conflicts
+    git pull origin "$CURRENT_BRANCH" --no-rebase -X ours || echo "Warning: Could not pull from origin (may have conflicts or be ahead)"
   else
     echo "No origin remote found, creating repository"
     gh repo create "$GH_USER/$REPO" --private --source=. --remote=origin --push || true
@@ -169,7 +170,7 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
   if git diff --staged --quiet && git diff --quiet; then
     echo "No changes to commit"
   else
-    git commit -m "Update Quartz site content" || true
+    git commit -am "Update Quartz site content" || true
   fi
   
   # Push to current branch
