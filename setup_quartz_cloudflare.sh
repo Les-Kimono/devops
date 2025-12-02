@@ -28,7 +28,7 @@ export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-CHANGE_ME_CF_API_TOKEN}"
 export PROJ="${PROJ:-kimonos-devops}"
 export DOMAIN="${DOMAIN:-CHANGE_ME_DOMAIN}"                 # optional custom domain
 export EMAIL_DOMAIN="${EMAIL_DOMAIN:-esiee.fr,edu.esiee.fr}" # comma-separated
-export ACCESS_APP_NAME="${ACCESS_APP_NAME:-devops-website}"
+export ACCESS_APP_NAME="${ACCESS_APP_NAME:-$PROJ}"
 export CF_ACCOUNT_ID="${CF_ACCOUNT_ID:-$CLOUDFLARE_ACCOUNT_ID}"
 export CF_API_TOKEN="${CF_API_TOKEN:-$CLOUDFLARE_API_TOKEN}"
 
