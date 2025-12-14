@@ -35,7 +35,7 @@ Pour travailler sur le site localement :
 # 1. Servir le site localement pour prévisualiser
 make site/serve
 
-# 2. Mettre à jour et déployer les changements
+# 2. Déployer les changements (sur la branche main)
 make site/update
 ```
 
