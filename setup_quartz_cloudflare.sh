@@ -191,8 +191,8 @@ CURRENT_BRANCH="main"
 # # Export for use in Cloudflare Pages deployment
 export CURRENT_BRANCH
  
-# ====== 8) CLOUDFLARE PAGES DEPLOY ======
-log_step "8) Deploying to Cloudflare Pages"
+# ====== 8) CLOUDFLARE PAGES PROJECT SETUP ======
+log_step "8) Creating/verifying Cloudflare Pages project"
 project_tmp=$(mktemp)
 project_status=$(curl -s -o "$project_tmp" -w "%{http_code}" "$CF_API_BASE/pages/projects/$PROJ" -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json")
 case "$project_status" in
@@ -201,7 +201,6 @@ case "$project_status" in
   *) echo "Warn: verify project (HTTP $project_status): $(cat "$project_tmp")" >&2; wrangler pages project create "$PROJ" --production-branch "${CURRENT_BRANCH:-main}" || true;;
 esac
 rm -f "$project_tmp"
-wrangler pages deploy ./public --project-name "$PROJ"
  
 # ====== 9) CUSTOM DOMAIN + ACCESS (reusable policy, sane session) ======
 log_step "9) Configuring Cloudflare custom domain and reusable Access policy"
