@@ -174,8 +174,9 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
   fi
   
   # Push to current branch
-  echo "Pushing to origin/$CURRENT_BRANCH"
-  git push origin "$CURRENT_BRANCH" || git push -u origin "$CURRENT_BRANCH" || true
+  # echo "Pushing to origin/$CURRENT_BRANCH"
+  echo "Skipping pushing to origin..."
+  # git push origin "$CURRENT_BRANCH" || git push -u origin "$CURRENT_BRANCH" || true
 else
   echo "Not a git repository, initializing..."
   git init -b main >/dev/null 2>&1 || true
