@@ -59,7 +59,7 @@ Quartz 4 est un générateur de site statique qui transforme vos fichiers Markdo
 
 #### Créer un nouveau rapport
 
-1. **Créer le fichier Markdown** dans `content/DevOps/` :
+1. **Créer le fichier Markdown** dans `content/devops/` :
    - Nommez-le de manière claire : `td1.md`, `td2.md`, `tp1.md`, etc.
    - Utilisez des **minuscules** et des **tirets** pour les noms de fichiers : `td1.md` ✅, pas `TD1.md` ❌
 
