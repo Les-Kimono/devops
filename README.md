@@ -4,6 +4,7 @@
 
 ### Première installation
 
+
 1. Cloner le repository :
 
    ```bash
@@ -13,7 +14,7 @@
 
 2. Récupérer le fichier `.env` manuellement (demandez-le à un collaborateur)
 
-**!!!!! Toutes les commandes doivent être exécutées dans Linux (c'est mieux) ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD. !!!!!**
+**⚠️ Important : Toutes les commandes doivent être exécutées dans Linux (c'est mieux) ou WSL (Windows Subsystem for Linux), pas dans PowerShell ou CMD.**
 
 3. Installer les dépendances système :
 
@@ -42,8 +43,7 @@ make site/update
 ## 📝 Workflow de développement
 
 1. **Modifier le contenu** : Éditez les fichiers Markdown dans `content/`
-2. **Mettre à jour** : `make site/update` pour builder et déployer
-3. **Prévisualiser** : `make site/serve` pour voir les changements localement
+2. **Prévisualiser** : `make site/serve` pour voir les changements localement
 
 ## 📚 Comment fonctionne Quartz 4 ?
 
@@ -57,23 +57,56 @@ Quartz 4 est un générateur de site statique qui transforme vos fichiers Markdo
 
 ### Éditer le contenu
 
-- Ajoutez/modifiez des fichiers `.md` dans `content/`
-- Utilisez le [frontmatter YAML](https://quartz.jzhao.xyz/features/frontmatter) pour la métadonnée :
+#### Créer un nouveau rapport
 
-  ```markdown
-  ---
-  title: Mon Titre
-  tags: [devops, tutorial]
-  ---
-  
-  # Contenu de la page
-  ```
+1. **Créer le fichier Markdown** dans `content/DevOps/` :
+   - Nommez-le de manière claire : `td1.md`, `td2.md`, `tp1.md`, etc.
+   - Utilisez des **minuscules** et des **tirets** pour les noms de fichiers : `td1.md` ✅, pas `TD1.md` ❌
 
-### Configuration
+2. **Ajouter le frontmatter YAML** en haut du fichier :
 
-Le fichier `quartz.config.ts` contient la configuration du site (thème, plugins, etc.).
+   ```markdown
+   ---
+   title: "TD1 - Déploiement d'applications"
+   description: "Description courte du rapport"
+   tags:
+     - devops
+     - deployment
+     - paas
+     - iaas
+     - td1
+   ---
+   ```
 
+   **Champs importants :**
+   - `title` : Titre affiché sur la page (utilisez des guillemets si le titre contient des caractères spéciaux)
 
+3. **Ajouter des images** :
+   - Créez un dossier `content/devops/images/nom-du-td/` (ex: `images/td1/`)
+   - Placez vos images dans ce dossier (PNG, JPG, etc.)
+   - Référencez-les dans le Markdown avec un chemin relatif :
+
+     ```markdown
+     ![Description de l'image](devops/images/td1/mon-image.png)
+     ```
+
+4. **Structurer votre contenu** :
+   - Utilisez des titres de section (`##`, `###`) pour organiser
+   - Incluez des captures d'écran pour illustrer vos étapes
+   - Documentez les problèmes rencontrés et leurs solutions
+
+#### Exemple de structure complète
+
+```text
+content/
+└── devops/
+    ├── td1.md
+    └── images/
+        └── td1/
+            ├── 1.png
+            ├── 2.png
+            └── screenshot.png
+```
 
 ## 📖 Documentation
 
