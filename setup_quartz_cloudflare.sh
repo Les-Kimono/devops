@@ -31,6 +31,7 @@ export EMAIL_DOMAIN="${EMAIL_DOMAIN:-esiee.fr,edu.esiee.fr}" # comma-separated
 export ACCESS_APP_NAME="${ACCESS_APP_NAME:-$PROJ}"
 export CF_ACCOUNT_ID="${CF_ACCOUNT_ID:-$CLOUDFLARE_ACCOUNT_ID}"
 export CF_API_TOKEN="${CF_API_TOKEN:-$CLOUDFLARE_API_TOKEN}"
+export PRESERVE_ACCESS_POLICIES="${PRESERVE_ACCESS_POLICIES:-0}"  # Set to 1 to skip updating existing policies
 
  
 if [ "$CLOUDFLARE_API_TOKEN" = "REPLACE_WITH_API_TOKEN" ]; then
@@ -245,25 +246,29 @@ include_rules=$(
 POLICY_NAME="${POLICY_NAME:-course-website-access-policy}"
 policy_payload=$(jq -n \
   --arg name "$POLICY_NAME" \
-  --arg sd "720h" \
+  --arg sd "48h" \
   --argjson include_rules "$include_rules" \
   '{name:$name, decision:"allow", include:$include_rules, session_duration:$sd}')
- 
+
 pol_list=$(mktemp)
 curl -s "$CF_API_BASE/access/policies?per_page=100" \
   -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" > "$pol_list"
- 
+
 POLICY_ID=$(jq -r --arg name "$POLICY_NAME" '
   ( .result // [] )
   | map(select(type=="object" and (.name // "")==$name))
   | (.[0] | .id) // empty
 ' "$pol_list")
 rm -f "$pol_list"
- 
+
 if [[ -n "$POLICY_ID" ]]; then
-  curl -s -X PUT "$CF_API_BASE/access/policies/$POLICY_ID" \
-    -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
-    --data "$policy_payload" >/dev/null
+  if [[ "${PRESERVE_ACCESS_POLICIES:-0}" == "1" ]]; then
+    echo "Policy $POLICY_NAME already exists (ID: $POLICY_ID), preserving it (PRESERVE_ACCESS_POLICIES=1)" >&2
+  else
+    curl -s -X PUT "$CF_API_BASE/access/policies/$POLICY_ID" \
+      -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
+      --data "$policy_payload" >/dev/null
+  fi
 else
   POLICY_ID=$(
     curl -s -X POST "$CF_API_BASE/access/policies" \
@@ -305,32 +310,40 @@ if [[ -z "$APP_ID" ]]; then
       --data "$access_payload" | jq -r '.result.id'
   )
 else
-  curl -s -X PUT "$CF_API_BASE/access/apps/$APP_ID" \
-    -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
-    --data "$access_payload" >/dev/null
+  if [[ "${PRESERVE_ACCESS_POLICIES:-0}" == "1" ]]; then
+    echo "Access app $ACCESS_APP_NAME already exists (ID: $APP_ID), preserving it (PRESERVE_ACCESS_POLICIES=1)" >&2
+  else
+    curl -s -X PUT "$CF_API_BASE/access/apps/$APP_ID" \
+      -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
+      --data "$access_payload" >/dev/null
+  fi
 fi
  
 # 11.5 Remove any legacy app-scoped policies to avoid precedence conflicts
-curl -s "$CF_API_BASE/access/apps/$APP_ID/policies?per_page=100" \
-  -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" |
-jq -r '(.result // []) | .[].id' | while read -r PID; do
-  [[ -n "$PID" ]] && curl -s -X DELETE "$CF_API_BASE/access/apps/$APP_ID/policies/$PID" \
-    -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" >/dev/null
-done
- 
-# 11.6 Attach exactly one reusable policy with precedence 1
-update_payload=$(jq -n --argjson base "$access_payload" --arg pid "$POLICY_ID" '
-  $base + {policies:[{id:$pid, precedence:1}]}
-')
-resp=$(curl -s -o /tmp/appupd -w "%{http_code}" -X PUT \
-  "$CF_API_BASE/access/apps/$APP_ID" \
-  -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
-  --data "$update_payload")
- 
-if [[ "$resp" != "200" && "$resp" != "201" ]]; then
-  echo "Warning: failed to attach reusable policy ($resp): $(cat /tmp/appupd)" >&2
+if [[ "${PRESERVE_ACCESS_POLICIES:-0}" != "1" ]]; then
+  curl -s "$CF_API_BASE/access/apps/$APP_ID/policies?per_page=100" \
+    -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" |
+  jq -r '(.result // []) | .[].id' | while read -r PID; do
+    [[ -n "$PID" ]] && curl -s -X DELETE "$CF_API_BASE/access/apps/$APP_ID/policies/$PID" \
+      -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" >/dev/null
+  done
+
+  # 11.6 Attach exactly one reusable policy with precedence 1
+  update_payload=$(jq -n --argjson base "$access_payload" --arg pid "$POLICY_ID" '
+    $base + {policies:[{id:$pid, precedence:1}]}
+  ')
+  resp=$(curl -s -o /tmp/appupd -w "%{http_code}" -X PUT \
+    "$CF_API_BASE/access/apps/$APP_ID" \
+    -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
+    --data "$update_payload")
+
+  if [[ "$resp" != "200" && "$resp" != "201" ]]; then
+    echo "Warning: failed to attach reusable policy ($resp): $(cat /tmp/appupd)" >&2
+  fi
+  rm -f /tmp/appupd
+else
+  echo "Skipping policy updates (PRESERVE_ACCESS_POLICIES=1)" >&2
 fi
-rm -f /tmp/appupd
  
  
 # ====== 10) FINAL DEPLOY ======
