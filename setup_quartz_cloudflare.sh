@@ -148,47 +148,47 @@ npx quartz build
 log_step "7) Syncing with GitHub repository"
 # Get current branch name (default to main if not in git repo)
 CURRENT_BRANCH="main"
-if git rev-parse --git-dir > /dev/null 2>&1; then
-  echo "Git repository detected"
-  CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")
+# if git rev-parse --git-dir > /dev/null 2>&1; then
+#   echo "Git repository detected"
+#   CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")
   
-  # Check if origin remote exists
-  if git remote | grep -q '^origin$'; then
-    echo "Fetching and pulling from origin/$CURRENT_BRANCH"
-    git fetch origin "$CURRENT_BRANCH" || true
-    # Use merge strategy that prefers local changes to avoid folder name conflicts
-    git pull origin "$CURRENT_BRANCH" --no-rebase -X ours || echo "Warning: Could not pull from origin (may have conflicts or be ahead)"
-  else
-    echo "No origin remote found, creating repository"
-    gh repo create "$GH_USER/$REPO" --private --source=. --remote=origin --push || true
-    # Update branch name after push
-    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")
-  fi
+#   # Check if origin remote exists
+#   if git remote | grep -q '^origin$'; then
+#     echo "Fetching and pulling from origin/$CURRENT_BRANCH"
+#     git fetch origin "$CURRENT_BRANCH" || true
+#     # Use merge strategy that prefers local changes to avoid folder name conflicts
+#     git pull origin "$CURRENT_BRANCH" --no-rebase -X ours || echo "Warning: Could not pull from origin (may have conflicts or be ahead)"
+#   else
+#     echo "No origin remote found, creating repository"
+#     gh repo create "$GH_USER/$REPO" --private --source=. --remote=origin --push || true
+#     # Update branch name after push
+#     CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")
+#   fi
   
-  # Stage and commit changes
-  git add . || true
-  if git diff --staged --quiet && git diff --quiet; then
-    echo "No changes to commit"
-  else
-    git commit -am "Update Quartz site content" || true
-  fi
+#   # Stage and commit changes
+#   git add . || true
+#   if git diff --staged --quiet && git diff --quiet; then
+#     echo "No changes to commit"
+#   else
+#     git commit -am "Update Quartz site content" || true
+#   fi
   
-  # Push to current branch
-  # echo "Pushing to origin/$CURRENT_BRANCH"
-  echo "Skipping pushing to origin..."
-  # git push origin "$CURRENT_BRANCH" || git push -u origin "$CURRENT_BRANCH" || true
-else
-  echo "Not a git repository, initializing..."
-  git init -b main >/dev/null 2>&1 || true
-  git add .; git commit -m "Quartz init + static content" || true
-  if ! git remote | grep -q '^origin$'; then
-    gh repo create "$GH_USER/$REPO" --private --source=. --remote=origin --push || true
-  else
-    git push -u origin main || true
-  fi
-  CURRENT_BRANCH="main"
-fi
-# Export for use in Cloudflare Pages deployment
+#   # Push to current branch
+#   # echo "Pushing to origin/$CURRENT_BRANCH"
+#   echo "Skipping pushing to origin..."
+#   # git push origin "$CURRENT_BRANCH" || git push -u origin "$CURRENT_BRANCH" || true
+# else
+#   echo "Not a git repository, initializing..."
+#   git init -b main >/dev/null 2>&1 || true
+#   git add .; git commit -m "Quartz init + static content" || true
+#   if ! git remote | grep -q '^origin$'; then
+#     gh repo create "$GH_USER/$REPO" --private --source=. --remote=origin --push || true
+#   else
+#     git push -u origin main || true
+#   fi
+#   CURRENT_BRANCH="main"
+# fi
+# # Export for use in Cloudflare Pages deployment
 export CURRENT_BRANCH
  
 # ====== 8) CLOUDFLARE PAGES DEPLOY ======
