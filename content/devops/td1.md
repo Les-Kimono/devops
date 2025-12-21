@@ -33,24 +33,36 @@ L'application est maintenant accessible via l'URL fournie par Render
 
 ### Création d'un utilisateur IAM
 
-J'ai créé avec succès un utilisateur nommé `lucas` dont je pourrais me servir tout au long de ce TD.
+Nous avons créé avec succès un utilisateur nommé `lucas` dont nous pourrions nous servir tout au long de ce TD.
 
 ![Utilisateur IAM créé](devops/images/td1/user_iam_created.png)
 
 ### Création et configuration d'une instance EC2
 
-Ensuite, j'ai procédé à la création d'une instance EC2. Lors de la configuration de l'application, j'ai rencontré un problème, en essayant d'accéder à mon application via l'adresse IP publique fournie, celle ci ne répondait pas.
+Ensuite, nous avons procédé à la création d'une instance EC2. Lors de la configuration de l'application, nous avons rencontré un problème, en essayant d'accéder à notre application via l'adresse IP publique fournie, celle ci ne répondait pas.
 
-Intuitivement, j'ai consulté les logs de la console de l'instance pour comprendre ce qui se passait et il s'est avéré que le code fourni dans le TD contenait une erreur de syntaxe, les commentaires en JavaScript ne sont pas déterminés par les symboles `#`, donc l'application Node plantait en rencontrant un `#`.
+Intuitivement, nous avons consulté les logs de la console de l'instance pour comprendre ce qui se passait et il s'est avéré que le code fourni dans le TD contenait une erreur de syntaxe, les commentaires en JavaScript ne sont pas déterminés par les symboles `#`, donc l'application Node plantait en rencontrant un `#`.
 
 ![Code copié ne marche pas](devops/images/td1/code_copie_ne_marche_pas.png)
 
-J'ai donc arrêté l'exécution de l'instance pour modifier les données utilisateur (`user data`), qui contiennent dans ce TD le code de l'application complète. Après avoir corrigé le problème de syntaxe dans le code JavaScript, j'ai relancé l'instance. Cependant, cela ne fonctionnait toujours pas, ce qui est un comportement normal et attendu.
+Nous avons donc arrêté l'exécution de l'instance pour modifier les données utilisateur (`user data`), qui contiennent dans ce TD le code de l'application complète. Après avoir corrigé le problème de syntaxe dans le code JavaScript, nous avons relancé l'instance. Cependant, cela ne fonctionnait toujours pas, ce qui est un comportement normal et attendu.
 
-En effet, j'ai pu comprendre que les données utilisateur ne sont exécutées qu'au premier démarrage de l'instance, cela signifie donc que si je souhaite que l'application JavaScript corrigée soit accessible depuis cette instance, je devrais recréer une nouvelle instance (avec les données utilisateur contenant le code corrigé).
+En effet, nous avons pu comprendre que les données utilisateur ne sont exécutées qu'au premier démarrage de l'instance, cela signifie donc que si nous souhaitons que l'application JavaScript corrigée soit accessible depuis cette instance, nous devrions recréer une nouvelle instance (avec les données utilisateur contenant le code corrigé).
 
 Dans AWS, les logs sont bien plus bruts et techniques, donc ils offrent plus de précision et d'informations détaillées sur ce qui se passe réellement derrière les instances.
 
-Finalement, j'ai stoppé l'instance pour conclure ce TD.
+Finalement, nous avons stoppé l'instance pour conclure ce TD.
 
 ![Instance EC2 stoppée](devops/images/td1/instance_stoppe.png)
+
+---
+
+## Conclusion
+
+Ce TD nous a permis de comparer deux approches de déploiement : le PaaS avec Render et l'IaaS avec AWS. 
+
+Avec Render, le déploiement est très simple et rapide. Il suffit de connecter le dépôt GitHub et l'application se déploie automatiquement. C'est pratique pour démarrer rapidement, mais on a moins de contrôle sur l'infrastructure.
+
+Avec AWS EC2, c'est plus complexe mais on a un contrôle total. On doit gérer l'instance, les logs, et comprendre comment fonctionnent les données utilisateur. C'est plus technique mais ça permet de mieux comprendre ce qui se passe sous le capot.
+
+Les deux approches ont leurs avantages selon le contexte et les besoins du projet.

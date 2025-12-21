@@ -1,15 +1,13 @@
-```markdown
-
 ---
 title: "TD5 - CI/CD, OpenTofu, AWS, OIDC & GitHub Actions"
 description: "Mise en œuvre d'une chaîne CI/CD complète avec GitHub Actions"
 tags:
   - devops
-  - AWS
-  - GitHub Actions
-  - CI/CD
-  - OpenTofu
-  - td1
+  - aws
+  - github-actions
+  - cicd
+  - opentofu
+  - td5
 ---
 
 ## 1. Introduction
@@ -223,7 +221,7 @@ jobs:
         working-directory: td5/scripts/tofu/live/ci-cd-permissions
         run: tofu plan
       - name: Run tofu test
-        working-directory: td4/scripts/tofu/live/lambda-sample
+        working-directory: td5/scripts/tofu/live/lambda-sample
         run: tofu test
 ```
 
