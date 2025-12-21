@@ -1,6 +1,15 @@
-# Rapport de Lab 4 : Version Control, Build Systems, and Automated Testing
-
-**Sujet :** Mise en œuvre d'une chaîne CI/CD complète (Git, NPM, Docker, Jest, OpenTofu)
+---
+title: "TD4 - Version Control, Build Systems, and Automated Testing"
+description: "Mise en œuvre d'une chaîne CI/CD complète (Git, NPM, Docker, Jest, OpenTofu)"
+tags:
+  - devops
+  - git
+  - npm
+  - docker
+  - jest
+  - opentofu
+  - td4
+---
 
 ## 1. Introduction
 
@@ -9,7 +18,6 @@ Ce rapport documente la réalisation du **Lab 4**, dont l'objectif principal ét
 2.  **Systèmes de build** et gestion de dépendances via NPM.
 3.  **Conteneurisation** d'une application via Docker.
 4.  **Tests automatisés** pour l'application (Jest) et l'infrastructure (OpenTofu).
-
 
 ## 2. Gestion de Version (Git & GitHub)
 
