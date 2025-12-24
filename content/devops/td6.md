@@ -93,7 +93,7 @@ Initialisation du projet :
 tofu init
 ```
 
-![](image-1.png)
+![](images/td6/image-1.png)
 
 Création de l’organisation et des comptes :
 
@@ -101,22 +101,22 @@ Création de l’organisation et des comptes :
 tofu apply
 ```
 
-![](image-2.png)
+![](images/td6/image-2.png)
 
 Résultat :
-![](image-3.png)
+![](images/td6/image-3.png)
 
 Les comptes sont bien créés et les identifiants sont sauvegardés.
 
 ### Configuration AWS locale
 
 Ajout des profils dans `~/.aws/config` :
-![](image-4.png)
+![](images/td6/image-4.png)
 
 Les placeholders sont remplacés par les valeurs retournées par `tofu apply`.
 
 Comme `credential_source` est défini à `Environment`, on définit les variables d’environnement dans WSL :
-![](image-5.png)
+![](images/td6/image-5.png)
 
 ### Vérification des comptes
 
@@ -126,7 +126,7 @@ Commande de vérification :
 AWS_PROFILE=dev-admin aws sts get-caller-identity
 ```
 
-![](image-6.png)
+![](images/td6/image-6.png)
 
 Même opération pour stage et prod :
 
@@ -196,7 +196,7 @@ tofu workspace new staging
 tofu workspace new production
 ```
 
-![](image-7.png)
+![](images/td6/image-7.png)
 
 ### Déploiements
 
@@ -207,10 +207,10 @@ tofu workspace select development
 AWS_PROFILE=dev-admin tofu apply
 ```
 
-![](image-8.png)
+![](images/td6/image-8.png)
 
 Résultat attendu :
-![](image-11.png)
+![](images/td6/image-11.png)
 
 Même logique pour staging :
 
@@ -219,7 +219,7 @@ tofu workspace select staging
 AWS_PROFILE=stage-admin tofu apply
 ```
 
-![](image-12.png)
+![](images/td6/image-12.png)
 
 ### Configuration par environnement
 
@@ -254,7 +254,7 @@ AWS_PROFILE=dev-admin tofu apply
 ```
 
 Résultat attendu :
-![](image-14.png)
+![](images/td6/image-14.png)
 
 ### Nettoyage
 
@@ -315,14 +315,14 @@ npm run dockerize
 ```
 
 L’image est bien créée :
-![](image-15.png)
+![](images/td6/image-15.png)
 
 Activation de Kubernetes sur Docker Desktop :
-![](image-16.png)
+![](images/td6/image-16.png)
 
 Déploiement sur Kubernetes :
-![](image-18.png)
-![](image-19.png)
+![](images/td6/image-18.png)
+![](images/td6/image-19.png)
 
 Vérification des services :
 
@@ -330,7 +330,7 @@ Vérification des services :
 kubectl get services
 ```
 
-![](image-20.png)
+![](images/td6/image-20.png)
 
 ### Frontend
 
@@ -362,7 +362,7 @@ kubectl apply -f sample-app-service.yml
 ```
 
 Résultat final :
-![](image-21.png)
+![](images/td6/image-21.png)
 
 L’URL `http://localhost` pointe correctement vers l’application.
 
