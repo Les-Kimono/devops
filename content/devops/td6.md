@@ -1,5 +1,9 @@
 # TD6 : Environnements multiples avec AWS et multi-services avec Kubernetes
 
+**IMPORTANT :**
+
+Vous pouvez trouver le code source de ce lab ici : [Lien](https://github.com/ZedRoff/devops-base)
+
 ## Table des matières
 
 1. [Préambule](#préambule)
@@ -371,3 +375,8 @@ L’URL `http://localhost` pointe correctement vers l’application.
 ## Conclusion
 
 Ce TD a permis de mettre en œuvre une chaîne complète de déploiement multi-environnements, depuis la création de comptes AWS jusqu’au déploiement de microservices sur Kubernetes. L’utilisation d’OpenTofu et des workspaces facilite la séparation des environnements, tandis que Kubernetes offre une solution robuste pour orchestrer des applications conteneurisées. Cette approche constitue une base solide pour des architectures DevOps modernes et évolutives.
+
+
+**IMPORTANT :**
+
+Vous pouvez trouver le code source de ce lab ici : [Lien](https://github.com/ZedRoff/devops-base)
