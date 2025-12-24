@@ -64,7 +64,7 @@ module "child_accounts" {
 cat ~/.aws/credentials
 ```
 
-![](td6/image.png)
+![](images/td6/image.png)
 
 * **source** : module utilisé pour créer l’organisation AWS.
 * Les comptes `development`, `staging` et `production` utilisent des adresses Gmail avec `+dev`, `+stage` et `+prod`, ce qui permet à AWS de reconnaître trois adresses distinctes.
