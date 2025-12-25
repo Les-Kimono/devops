@@ -16,7 +16,7 @@ Vous pouvez trouver le code source de ce lab ici : [Lien](https://github.com/Zed
 
 ## Préambule
 
-Ce TD a pour objectif de mettre en place une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes. Il aborde la création et la gestion de comptes AWS distincts (dev, stage, prod), l’utilisation des workspaces pour gérer les déploiements applicatifs, ainsi que le déploiement de microservices conteneurisés sur Kubernetes. L’ensemble permet d’illustrer une approche moderne et industrialisée du déploiement d’applications.
+Ce TD a pour objectif de mettre en place une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes. Il aborde la création et la gestion de comptes AWS distincts (dev, stage, prod), l'utilisation des workspaces pour gérer les déploiements applicatifs, ainsi que le déploiement de microservices conteneurisés sur Kubernetes. L'ensemble permet d'illustrer une approche moderne et industrialisée du déploiement d'applications.
 
 ---
 
@@ -26,7 +26,7 @@ Dans cette partie, on va créer les différents environnements (prod, stage et d
 
 L'approche choisie est plutôt celle proposée dans le repository de Brekkis, avec un tableau retournant les rôles créés et les ARNs associés.
 
-### Création de l’arborescence
+### Création de l'arborescence
 
 On crée les dossiers suivants :
 
@@ -70,7 +70,7 @@ cat ~/.aws/credentials
 
 ![](images/td6/image.png)
 
-* **source** : module utilisé pour créer l’organisation AWS.
+* **source** : module utilisé pour créer l'organisation AWS.
 * Les comptes `development`, `staging` et `production` utilisent des adresses Gmail avec `+dev`, `+stage` et `+prod`, ce qui permet à AWS de reconnaître trois adresses distinctes.
 
 ### Fichier `outputs.tf`
@@ -99,7 +99,7 @@ tofu init
 
 ![](images/td6/image-1.png)
 
-Création de l’organisation et des comptes :
+Création de l'organisation et des comptes :
 
 ```
 tofu apply
@@ -119,7 +119,7 @@ Ajout des profils dans `~/.aws/config` :
 
 Les placeholders sont remplacés par les valeurs retournées par `tofu apply`.
 
-Comme `credential_source` est défini à `Environment`, on définit les variables d’environnement dans WSL :
+Comme `credential_source` est défini à `Environment`, on définit les variables d'environnement dans WSL :
 ![](images/td6/image-5.png)
 
 ### Vérification des comptes
@@ -145,13 +145,13 @@ Les environnements AWS sont prêts pour la suite du TD.
 
 ## Partie 2) Gérer les déploiements avec les workspaces OpenTofu
 
-On récupère l’application Lambda du TD5 :
+On récupère l'application Lambda du TD5 :
 
 ```
 cp -r td5/scripts/tofu/live/lambda-sample td6/tofu/live/
 ```
 
-Copie du module de test d’endpoint :
+Copie du module de test d'endpoint :
 
 ```
 cp -r ./td5/scripts/tofu/modules/test-endpoint/ td6/tofu/modules
@@ -173,7 +173,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-On configure ensuite les variables d’environnement dans `main.tf` :
+On configure ensuite les variables d'environnement dans `main.tf` :
 
 ```
 environment_variables = {
@@ -204,7 +204,7 @@ tofu workspace new production
 
 ### Déploiements
 
-Déploiement sur l’environnement de développement :
+Déploiement sur l'environnement de développement :
 
 ```
 tofu workspace select development
@@ -312,13 +312,13 @@ Mise à jour de `package.json` :
 }
 ```
 
-Configuration Kubernetes (`deployment` et `service`) puis build de l’image Docker :
+Configuration Kubernetes (`deployment` et `service`) puis build de l'image Docker :
 
 ```
 npm run dockerize
 ```
 
-L’image est bien créée :
+L'image est bien créée :
 ![](images/td6/image-15.png)
 
 Activation de Kubernetes sur Docker Desktop :
@@ -368,13 +368,13 @@ kubectl apply -f sample-app-service.yml
 Résultat final :
 ![](images/td6/image-21.png)
 
-L’URL `http://localhost` pointe correctement vers l’application.
+L'URL `http://localhost` pointe correctement vers l'application.
 
 ---
 
 ## Conclusion
 
-Ce TD a permis de mettre en œuvre une chaîne complète de déploiement multi-environnements, depuis la création de comptes AWS jusqu’au déploiement de microservices sur Kubernetes. L’utilisation d’OpenTofu et des workspaces facilite la séparation des environnements, tandis que Kubernetes offre une solution robuste pour orchestrer des applications conteneurisées. Cette approche constitue une base solide pour des architectures DevOps modernes et évolutives.
+Ce TD a permis de mettre en œuvre une chaîne complète de déploiement multi-environnements, depuis la création de comptes AWS jusqu'au déploiement de microservices sur Kubernetes. L'utilisation d'OpenTofu et des workspaces facilite la séparation des environnements, tandis que Kubernetes offre une solution robuste pour orchestrer des applications conteneurisées. Cette approche constitue une base solide pour des architectures DevOps modernes et évolutives.
 
 
 **IMPORTANT :**
