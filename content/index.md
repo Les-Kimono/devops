@@ -28,3 +28,6 @@ Mise en œuvre d'une chaîne CI/CD complète (Git, NPM, Docker, Jest, OpenTofu)
 
 ### [TD5 - CI/CD, OpenTofu, AWS, OIDC & GitHub Actions](devops/td5)
 Mise en œuvre d'une chaîne CI/CD complète avec GitHub Actions
+
+### [TD6 - Environnements multiples avec AWS et multi-services avec Kubernetes](devops/td6)
+Mise en œuvre d'une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes

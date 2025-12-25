@@ -1,4 +1,15 @@
-# TD6 : Environnements multiples avec AWS et multi-services avec Kubernetes
+---
+title: "TD6 - Environnements multiples avec AWS et multi-services avec Kubernetes"
+description: "Mise en œuvre d'une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes"
+tags:
+  - devops
+  - aws-accounts
+  - opentofu
+  - kubernetes
+  - workspaces
+  - microservices
+  - td6
+---
 
 **IMPORTANT :**
 
