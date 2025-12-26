@@ -9,7 +9,13 @@ tags:
   - td1
 ---
 
-## Déployer une application avec un PaaS : Render
+## 1. Introduction
+
+Ce rapport présente le **TD1** sur le déploiement d'applications. L'objectif était de découvrir deux approches différentes pour déployer une application : le PaaS (Platform as a Service) et l'IaaS (Infrastructure as a Service). Nous avons travaillé sur :
+1. **Déploiement avec PaaS** : Utilisation de Render pour déployer rapidement une application Hello World.
+2. **Déploiement avec IaaS** : Configuration d'une instance EC2 sur AWS et déploiement manuel de l'application.
+
+## 2. Déployer une application avec un PaaS : Render
 
 J'ai connecté mon compte GitHub à Render et je m'apprête à créer le web service dans un tier gratuit pour mon application Hello World.
 
