@@ -1,4 +1,15 @@
-# TD6 : Environnements multiples avec AWS et multi-services avec Kubernetes
+---
+title: "TD6 - Environnements multiples avec AWS et multi-services avec Kubernetes"
+description: "Mise en œuvre d'une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes"
+tags:
+  - devops
+  - aws-accounts
+  - opentofu
+  - kubernetes
+  - workspaces
+  - microservices
+  - td6
+---
 
 **IMPORTANT :**
 
@@ -16,7 +27,7 @@ Vous pouvez trouver le code source de ce lab ici : [Lien](https://github.com/Zed
 
 ## Préambule
 
-Ce TD a pour objectif de mettre en place une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes. Il aborde la création et la gestion de comptes AWS distincts (dev, stage, prod), l’utilisation des workspaces pour gérer les déploiements applicatifs, ainsi que le déploiement de microservices conteneurisés sur Kubernetes. L’ensemble permet d’illustrer une approche moderne et industrialisée du déploiement d’applications.
+Ce TD a pour objectif de mettre en place une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes. Il aborde la création et la gestion de comptes AWS distincts (dev, stage, prod), l'utilisation des workspaces pour gérer les déploiements applicatifs, ainsi que le déploiement de microservices conteneurisés sur Kubernetes. L'ensemble permet d'illustrer une approche moderne et industrialisée du déploiement d'applications.
 
 ---
 
@@ -26,7 +37,7 @@ Dans cette partie, on va créer les différents environnements (prod, stage et d
 
 L'approche choisie est plutôt celle proposée dans le repository de Brekkis, avec un tableau retournant les rôles créés et les ARNs associés.
 
-### Création de l’arborescence
+### Création de l'arborescence
 
 On crée les dossiers suivants :
 
@@ -68,9 +79,9 @@ module "child_accounts" {
 cat ~/.aws/credentials
 ```
 
-![](images/td6/image.png)
+![](devops/images/td6/image.png)
 
-* **source** : module utilisé pour créer l’organisation AWS.
+* **source** : module utilisé pour créer l'organisation AWS.
 * Les comptes `development`, `staging` et `production` utilisent des adresses Gmail avec `+dev`, `+stage` et `+prod`, ce qui permet à AWS de reconnaître trois adresses distinctes.
 
 ### Fichier `outputs.tf`
@@ -97,30 +108,30 @@ Initialisation du projet :
 tofu init
 ```
 
-![](images/td6/image-1.png)
+![](devops/images/td6/image-1.png)
 
-Création de l’organisation et des comptes :
+Création de l'organisation et des comptes :
 
 ```
 tofu apply
 ```
 
-![](images/td6/image-2.png)
+![](devops/images/td6/image-2.png)
 
 Résultat :
-![](images/td6/image-3.png)
+![](devops/images/td6/image-3.png)
 
 Les comptes sont bien créés et les identifiants sont sauvegardés.
 
 ### Configuration AWS locale
 
 Ajout des profils dans `~/.aws/config` :
-![](images/td6/image-4.png)
+![](devops/images/td6/image-4.png)
 
 Les placeholders sont remplacés par les valeurs retournées par `tofu apply`.
 
-Comme `credential_source` est défini à `Environment`, on définit les variables d’environnement dans WSL :
-![](images/td6/image-5.png)
+Comme `credential_source` est défini à `Environment`, on définit les variables d'environnement dans WSL :
+![](devops/images/td6/image-5.png)
 
 ### Vérification des comptes
 
@@ -130,7 +141,7 @@ Commande de vérification :
 AWS_PROFILE=dev-admin aws sts get-caller-identity
 ```
 
-![](images/td6/image-6.png)
+![](devops/images/td6/image-6.png)
 
 Même opération pour stage et prod :
 
@@ -145,13 +156,13 @@ Les environnements AWS sont prêts pour la suite du TD.
 
 ## Partie 2) Gérer les déploiements avec les workspaces OpenTofu
 
-On récupère l’application Lambda du TD5 :
+On récupère l'application Lambda du TD5 :
 
 ```
 cp -r td5/scripts/tofu/live/lambda-sample td6/tofu/live/
 ```
 
-Copie du module de test d’endpoint :
+Copie du module de test d'endpoint :
 
 ```
 cp -r ./td5/scripts/tofu/modules/test-endpoint/ td6/tofu/modules
@@ -173,7 +184,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-On configure ensuite les variables d’environnement dans `main.tf` :
+On configure ensuite les variables d'environnement dans `main.tf` :
 
 ```
 environment_variables = {
@@ -200,21 +211,21 @@ tofu workspace new staging
 tofu workspace new production
 ```
 
-![](images/td6/image-7.png)
+![](devops/images/td6/image-7.png)
 
 ### Déploiements
 
-Déploiement sur l’environnement de développement :
+Déploiement sur l'environnement de développement :
 
 ```
 tofu workspace select development
 AWS_PROFILE=dev-admin tofu apply
 ```
 
-![](images/td6/image-8.png)
+![](devops/images/td6/image-8.png)
 
 Résultat attendu :
-![](images/td6/image-11.png)
+![](devops/images/td6/image-11.png)
 
 Même logique pour staging :
 
@@ -223,7 +234,7 @@ tofu workspace select staging
 AWS_PROFILE=stage-admin tofu apply
 ```
 
-![](images/td6/image-12.png)
+![](devops/images/td6/image-12.png)
 
 ### Configuration par environnement
 
@@ -258,7 +269,7 @@ AWS_PROFILE=dev-admin tofu apply
 ```
 
 Résultat attendu :
-![](images/td6/image-14.png)
+![](devops/images/td6/image-14.png)
 
 ### Nettoyage
 
@@ -312,21 +323,21 @@ Mise à jour de `package.json` :
 }
 ```
 
-Configuration Kubernetes (`deployment` et `service`) puis build de l’image Docker :
+Configuration Kubernetes (`deployment` et `service`) puis build de l'image Docker :
 
 ```
 npm run dockerize
 ```
 
-L’image est bien créée :
-![](images/td6/image-15.png)
+L'image est bien créée :
+![](devops/images/td6/image-15.png)
 
 Activation de Kubernetes sur Docker Desktop :
-![](images/td6/image-16.png)
+![](devops/images/td6/image-16.png)
 
 Déploiement sur Kubernetes :
-![](images/td6/image-18.png)
-![](images/td6/image-19.png)
+![](devops/images/td6/image-18.png)
+![](devops/images/td6/image-19.png)
 
 Vérification des services :
 
@@ -334,7 +345,7 @@ Vérification des services :
 kubectl get services
 ```
 
-![](images/td6/image-20.png)
+![](devops/images/td6/image-20.png)
 
 ### Frontend
 
@@ -366,15 +377,15 @@ kubectl apply -f sample-app-service.yml
 ```
 
 Résultat final :
-![](images/td6/image-21.png)
+![](devops/images/td6/image-21.png)
 
-L’URL `http://localhost` pointe correctement vers l’application.
+L'URL `http://localhost` pointe correctement vers l'application.
 
 ---
 
 ## Conclusion
 
-Ce TD a permis de mettre en œuvre une chaîne complète de déploiement multi-environnements, depuis la création de comptes AWS jusqu’au déploiement de microservices sur Kubernetes. L’utilisation d’OpenTofu et des workspaces facilite la séparation des environnements, tandis que Kubernetes offre une solution robuste pour orchestrer des applications conteneurisées. Cette approche constitue une base solide pour des architectures DevOps modernes et évolutives.
+Ce TD a permis de mettre en œuvre une chaîne complète de déploiement multi-environnements, depuis la création de comptes AWS jusqu'au déploiement de microservices sur Kubernetes. L'utilisation d'OpenTofu et des workspaces facilite la séparation des environnements, tandis que Kubernetes offre une solution robuste pour orchestrer des applications conteneurisées. Cette approche constitue une base solide pour des architectures DevOps modernes et évolutives.
 
 
 **IMPORTANT :**
