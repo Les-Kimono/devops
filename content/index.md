@@ -6,7 +6,7 @@ title: "Bienvenue"
 
 Bienvenue sur le site des rapports DevOps. Vous trouverez ci-dessous la liste des travaux dirigés disponibles.
 
-Nous sommes en E4FI, en filière `Informatique et Applications` à l'ESIEE Paris pour les années 2024-2027.
+Nous sommes en E4FI, en filière `Informatique et Applications` à l'ESIEE Paris pour l'année 2025-2026.
 Notre équipe se compose de : 
 
 - Adrien BAFFIONI
