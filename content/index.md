@@ -6,7 +6,8 @@ title: "Bienvenue"
 
 Bienvenue sur le site des rapports DevOps. Vous trouverez ci-dessous la liste des travaux dirigés disponibles.
 
-Notre équipe : 
+Nous sommes en E4FI, en filière `Informatique et Applications` à l'ESIEE Paris pour les années 2024-2027.
+Notre équipe se compose de : 
 
 - Adrien BAFFIONI
 - Aman GHAZANFAR
@@ -14,6 +15,7 @@ Notre équipe :
 - Jordan BELCOLLIN
 - Justine HAKIM
 - Lucas MERLIN
+
 
 ## Travaux Dirigés
 
@@ -27,10 +29,10 @@ Déploiement d'infrastructure AWS via Bash, Ansible, Packer et OpenTofu
 Orchestration d'infrastructure AWS via Ansible, Packer, OpenTofu, K8s et Lambda.
 
 ### [TD4 - Version Control, Build Systems, and Automated Testing](devops/td4)
-Mise en œuvre d'une chaîne CI/CD complète (Git, NPM, Docker, Jest, OpenTofu)
+Mise en oeuvre d'une chaîne CI/CD complète (Git, NPM, Docker, Jest, OpenTofu)
 
 ### [TD5 - CI/CD, OpenTofu, AWS, OIDC & GitHub Actions](devops/td5)
-Mise en œuvre d'une chaîne CI/CD complète avec GitHub Actions
+Mise en oeuvre d'une chaîne CI/CD complète avec GitHub Actions
 
 ### [TD6 - Environnements multiples avec AWS et multi-services avec Kubernetes](devops/td6)
-Mise en œuvre d'une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes
+Mise en oeuvre d'une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes
