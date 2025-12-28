@@ -1,5 +1,7 @@
 ---
 title: "TD3 - Comment déployer vos applications"
+shortTitle: "TD3"
+author: "Adrien BAFFIONI"
 description: "Exploration des paradigmes DevOps sur AWS : IaC avec Ansible et OpenTofu, conteneurisation via Kubernetes et déploiement Serverless avec Lambda."
 tags:
   - devops

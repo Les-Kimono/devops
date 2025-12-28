@@ -1,5 +1,7 @@
 ---
 title: "TD4 - Version Control, Build Systems, and Automated Testing"
+shortTitle: "TD4"
+author: "Auguste SAGAERT"
 description: "Mise en œuvre d'une chaîne CI/CD complète (Git, NPM, Docker, Jest, OpenTofu)"
 tags:
   - devops

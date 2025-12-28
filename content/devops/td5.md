@@ -1,5 +1,7 @@
 ---
 title: "TD5 - CI/CD, OpenTofu, AWS, OIDC & GitHub Actions"
+shortTitle: "TD5"
+author: "Jordan BELCOLLIN"
 description: "Mise en œuvre d'une chaîne CI/CD complète avec GitHub Actions"
 tags:
   - devops

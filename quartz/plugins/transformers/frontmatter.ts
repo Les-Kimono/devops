@@ -137,7 +137,7 @@ declare module "vfile" {
     aliases: FullSlug[]
     frontmatter: { [key: string]: unknown } & {
       title: string
-    } & Partial<{
+      } & Partial<{
         tags: string[]
         aliases: string[]
         modified: string
@@ -152,6 +152,8 @@ declare module "vfile" {
         cssclasses: string[]
         socialImage: string
         comments: boolean | string
+        author: string
+        shortTitle: string
       }>
   }
 }

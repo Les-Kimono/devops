@@ -1,5 +1,7 @@
 ---
 title: "TD6 - Environnements multiples avec AWS et multi-services avec Kubernetes"
+shortTitle: "TD6"
+author: "Aman GHAZANFAR"
 description: "Mise en œuvre d'une architecture multi-environnements réaliste en combinant AWS, OpenTofu et Kubernetes"
 tags:
   - devops

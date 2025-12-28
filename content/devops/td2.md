@@ -1,5 +1,7 @@
 ---
 title: "TD2 - Gestion de l'IAC (Infrastructure as Code)"
+shortTitle: "TD2"
+author: "Adrien BAFFIONI"
 description: "Déploiement d'infrastructure AWS via Bash, Ansible, Packer et OpenTofu"
 tags:
   - devops

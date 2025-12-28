@@ -1,6 +1,8 @@
 ---
 title: "TD1 - Déploiement d'applications"
+shortTitle: "TD1"
 description: "Déploiement d'une application Hello World avec PaaS et IaaS"
+author: "Lucas MERLIN"
 tags:
   - devops
   - deployment
